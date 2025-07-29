@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mümder Burs Programı</title>
+    <style>
+        
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+        min-height: 100vh;
+        color: #1565c0;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .hero {
+        padding: 120px 0 80px;
+        text-align: center;
+        color: #1565c0;
+        background: linear-gradient(90deg, #e3f2fd 60%, #fff 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero h1 {
+        font-size: 2.7rem;
+        font-weight: 800;
+        margin-bottom: 1.2rem;
+        background: linear-gradient(45deg, #1565c0, #1976d2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 1px;
+        animation: fadeInDown 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .hero p {
+        color: #1976d2;
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin: 0 auto 2.5rem auto;
+        font-weight: 500;
+        opacity: 0.92;
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) 0.2s both;
+    }
+
+    .burs-section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 0;
+        gap: 40px;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+        margin-bottom: 2.5rem;
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .burs-section.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .burs-image {
+        flex: 1 1 320px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .burs-image img {
+        width: 260px;
+        height: 260px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 8px solid #e3f2fd;
+        box-shadow: 0 10px 25px rgba(21,101,192,0.13);
+        background: #e3f2fd;
+        animation: float 5s ease-in-out infinite;
+    }
+
+    .burs-content {
+        flex: 1 1 400px;
+        color: #1565c0;
+        padding: 0 1rem;
+    }
+
+    .burs-content h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #1976d2;
+        font-weight: 700;
+    }
+
+    .burs-content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.95rem 2.5rem;
+        text-decoration: none;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: background 0.2s, color 0.2s, transform 0.18s;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(21,101,192,0.10);
+        letter-spacing: 1px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background: #fff;
+        color: #1565c0;
+        border: 2px solid #1565c0;
+    }
+
+    .btn:hover {
+        background: #1976d2;
+        color: #fff;
+        transform: scale(1.07);
+    }
+
+    .main-content {
+        background: #fff;
+        margin: 50px 0;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(21,101,192,0.10);
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .content-section {
+        padding: 60px 50px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        color: #1565c0;
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+        border-radius: 2px;
+    }
+
+    .message-box {
+        background: linear-gradient(135deg, #f8f9ff, #e8f4fd);
+        border-left: 5px solid #1565c0;
+        padding: 30px;
+        margin: 30px 0;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(21,101,192,0.07);
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .message-box p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #555;
+    }
+
+    .legal-section {
+        background: #f8f9fa;
+        padding: 40px 50px;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .legal-item {
+        margin-bottom: 30px;
+        border: 1px solid #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        background: #fff;
+    }
+
+    .legal-item:hover {
+        box-shadow: 0 5px 20px rgba(21,101,192,0.10);
+    }
+
+    .legal-header {
+        background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+        color: white;
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.2s;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .legal-header:hover {
+        background: #1976d2;
+    }
+
+    .legal-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .toggle-icon {
+        font-size: 1.5rem;
+        transition: transform 0.3s;
+    }
+
+    .legal-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s;
+        background: white;
+    }
+
+    .legal-content.active {
+        max-height: 1000px;
+    }
+
+    .legal-content .content-inner {
+        padding: 25px;
+        line-height: 1.7;
+        color: #555;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0px);}
+        50% { transform: translateY(-20px);}
+    }
+
+    @media (max-width: 900px) {
+        .container {
+            padding: 0 1rem;
+        }
+        .burs-section,
+        .burs-section.reverse {
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 0;
+            gap: 24px;
+        }
+        .burs-image img {
+            width: 180px;
+            height: 180px;
+        }
+        .burs-content {
+            padding: 0;
+        }
+        .content-section, .legal-section {
+            padding: 30px 10px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+        }
+        .main-content {
+            margin: 30px 0;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .hero {
+            padding: 80px 0 40px;
+        }
+        .hero h1 {
+            font-size: 1.5rem;
+        }
+        .burs-image img {
+            width: 120px;
+            height: 120px;
+        }
+        .content-section, .legal-section {
+            padding: 18px 4px;
+        }
+        .message-box {
+            padding: 15px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Geleceğin Liderlerine Burs Desteği</h1>
+                <p>Eğitim hayatında başarılı olan öğrencilerimizi desteklemek ve hayallerine ulaşmalarında yardımcı olmak için buradayız.</p>
+                <div class="container">
+    <!-- Burs Ver Section -->
+    <section class="burs-section">
+      <div class="burs-image">
+        <img src="image/202208251409231-img.jpg" alt="Burs Ver">
+      </div>
+      <div class="burs-content">
+        <h3>Geleceğe Destek Olun</h3>
+        <p>İmkanları kısıtlı fakat hayalleri büyük öğrencilerimizin yanında olun. Yapacağınız her katkı, onların hayatında yeni bir kapı aralayabilir.</p>
+        <a href="Projeler.html" class="btn btn-primary">Burs Ver</a>
+      </div>
+    </section>
+
+    <!-- Burs Al Section -->
+    <section class="burs-section reverse">
+      <div class="burs-image">
+        <img src="image/burs_takip_sistemi_gorsel.jpg" alt="Burs Al">
+      </div>
+      <div class="burs-content">
+        <h3>Hayallerin İçin Destek Al</h3>
+        <p>Eğitim hayatında maddi zorluk yaşayan öğrenciler için buradayız. Burs başvurusu yaparak bu desteğe sen de ulaşabilirsin.</p>
+        <a href="burs-form.html" class="btn btn-secondary">Burs Al</a>
+      </div>
+    </section>
+  </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main class="main-content">
+            <section class="content-section">
+                <h2 class="section-title">Burs Kazanan Öğrenciler</h2>
+                <div class="message-box">
+                    <p>2024-2025 Eğitim öğretim döneminde Mümder bursu almaya hak kazanan adaylarımızı tebrik ederiz. Siz değerli öğrencilerin öğrenim hayatlarını daha konforlu hale getirmek adına kısıtlı imkanlar nedeniyle sadece 300 öğrencimizi sevindirebiliyoruz. Emeği geçen herkese teşekkürlerimizi borç biliriz.</p>
+                    <p>Burs almaya hak kazanan adayların bursları Iban hesaplarına yatırılmıştır. Kişisel veri olduğu için burs listemiz sitemizde yayınlanmamaktadır.</p>
+                    <p><strong>Hayırlara vesile olması temennisi ile…</strong></p>
+                </div>
+            </section>
+
+            <section class="legal-section">
+                <h2 class="section-title">Yasal Belgeler</h2>
+                
+                <div class="legal-item">
+                    <div class="legal-header" onclick="toggleLegal('aydinlatma')">
+                        <h3>Burs Başvuru Aydınlatma Metni</h3>
+                        <span class="toggle-icon" id="aydinlatma-icon">+</span>
+                    </div>
+                    <div class="legal-content" id="aydinlatma-content">
+                        <div class="content-inner">
+                            <p><strong>Kişisel Verilerin Korunması Kanunu Kapsamında Aydınlatma Metni</strong></p>
+                            <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verilerinizin işlenmesi hakkında sizleri bilgilendirmek isteriz.</p>
+                            <p><strong>Veri Sorumlusu:</strong> Mümder Derneği</p>
+                            <p><strong>İşlenen Kişisel Veriler:</strong> Ad, soyad, TC kimlik numarası, telefon numarası, e-posta adresi, adres bilgileri, öğrenim bilgileri, gelir durumu ile ilgili belgeler</p>
+                            <p><strong>Kişisel Verilerin İşlenme Amacı:</strong> Burs başvurunuzun değerlendirilmesi, burs ödemelerinin yapılması, istatistiksel analiz çalışmaları</p>
+                            <p><strong>Kişisel Verilerin Aktarılacağı Üçüncü Kişiler:</strong> Yasal yükümlülükler çerçevesinde ilgili kamu kurumları</p>
+                            <p><strong>Kişisel Veri Sahibinin Hakları:</strong> KVKK'nın 11. maddesi kapsamında kişisel verileriniz ile ilgili bilgi talep etme, düzeltme, silme ve işlemenin durdurulmasını talep etme haklarınız bulunmaktadır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legal-item">
+                    <div class="legal-header" onclick="toggleLegal('riza')">
+                        <h3>Burs Başvuru Rıza Metni</h3>
+                        <span class="toggle-icon" id="riza-icon">+</span>
+                    </div>
+                    <div class="legal-content" id="riza-content">
+                        <div class="content-inner">
+                            <p><strong>Açık Rıza Metni</strong></p>
+                            <p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında;</p>
+                            <p>Burs başvurum kapsamında paylaştığım kişisel verilerimin, burs başvurumun değerlendirilmesi, burs ödemelerinin gerçekleştirilmesi, istatistiksel analiz çalışmaları ve yasal yükümlülüklerin yerine getirilmesi amaçlarıyla Mümder Derneği tarafından işlenmesine,</p>
+                            <p>Bu kapsamda paylaştığım kişisel verilerimin, yukarıda belirtilen amaçlar doğrultusunda, yasal yükümlülükler çerçevesinde yetkili kamu kurumları ile paylaşılmasına,</p>
+                            <p>Kişisel verilerimin işlenmesi ve aktarılması konusunda KVKK'nın 11. maddesinde sayılan haklarımın bulunduğunu bildiğimi kabul ettiğimi,</p>
+                            <p><strong>Açık rızamı verdiğimi beyan ederim.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 6px 40px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Legal content toggle
+        function toggleLegal(id) {
+            const content = document.getElementById(id + '-content');
+            const icon = document.getElementById(id + '-icon');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.textContent = '+';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close all other legal contents
+                document.querySelectorAll('.legal-content').forEach(el => {
+                    el.classList.remove('active');
+                });
+                document.querySelectorAll('.toggle-icon').forEach(el => {
+                    el.textContent = '+';
+                    el.style.transform = 'rotate(0deg)';
+                });
+                
+                // Open clicked content
+                content.classList.add('active');
+                icon.textContent = '−';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for scroll animations
+        document.querySelectorAll('.message-box, .legal-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-element');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.1;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Button hover effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+    <script src="js/loadcomponents.js"></script>
+</body>
+</html>

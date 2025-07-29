@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Home.css">
+    <title>Medya Merkezi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Modern ve MÜMDER temalı Medya Merkezi stilleri */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+            min-height: 100vh;
+            color: #1565c0;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: 2.5rem;
+            animation: fadeInDown 1s cubic-bezier(.4,2,.6,1);
+        }
+        
+        .header h1 {
+            color: #1565c0;
+            font-size: 2.7rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(45deg, #1565c0, #1976d2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+        
+        .header p {
+            color: #1976d2;
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
+            opacity: 0.92;
+        }
+        
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.2rem;
+            margin-bottom: 3.5rem;
+        }
+        
+        .media-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+            transition: transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            will-change: opacity, transform;
+            border: 1.5px solid #e3f2fd;
+        }
+        
+        .media-card.animate-slide-left,
+        .media-card.animate-slide-right,
+        .media-card.animate-drop,
+        .media-card.animate-rotate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: fadeInUp 0.8s cubic-bezier(.4,2,.6,1);
+        }
+        
+        .media-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 16px 40px rgba(21,101,192,0.18);
+            border-color: #1976d2;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+            border-radius: 20px 20px 0 0;
+            background: #e3f2fd;
+        }
+        
+        .media-card:hover .card-image {
+            transform: scale(1.07);
+        }
+        
+        .card-content {
+            padding: 1.7rem 1.5rem 1.5rem 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 0.7rem;
+            line-height: 1.3;
+        }
+        
+        .card-description {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+        
+        .read-more-btn {
+            background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(21,101,192,0.10);
+            transition: background 0.2s, color 0.2s, transform 0.18s;
+            outline: none;
+            margin-top: 0.5rem;
+        }
+        .read-more-btn:hover {
+            background: #1976d2;
+            color: #fff;
+            transform: scale(1.07);
+        }
+        
+        .social-tag {
+            display: inline-block;
+            background: linear-gradient(45deg, #E1306C, #F56040);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 2.5rem;
+        }
+        
+        .page-btn {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background 0.2s, color 0.2s, transform 0.18s;
+            box-shadow: 0 2px 8px rgba(21,101,192,0.07);
+        }
+        .page-btn.active {
+            background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+            color: #fff;
+        }
+        .page-btn:hover {
+            background: #1976d2;
+            color: #fff;
+            transform: scale(1.07);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(21,101,192,0.13);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: #fff;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 92%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.4s cubic-bezier(.4,2,.6,1);
+            box-shadow: 0 8px 32px rgba(21,101,192,0.13);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+            background: #e3f2fd;
+        }
+        
+        .modal-body {
+            padding: 2.2rem;
+        }
+        
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 1.2rem;
+        }
+        
+        .modal-description {
+            font-size: 1.08rem;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            background: #1976d2;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(21,101,192,0.10);
+        }
+        .close:hover {
+            background: #1565c0;
+            transform: scale(1.1);
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 900px) {
+            .media-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .modal-image {
+                height: 180px;
+            }
+            .modal-content {
+                width: 98%;
+                margin: 10% auto;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .modal-body {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="navbar-placeholder"></div>
+    <div class="container">
+<br>
+<br>
+
+
+        <div class="header">
+            <h1>Medya Merkezi</h1>
+            <p>Güncel haberler, etkinlikler ve sosyal medya paylaşımlarımızı takip edin</p>
+        </div>
+
+        <div class="media-grid" id="mediaGrid">
+            <!-- Media cards will be populated by JavaScript -->
+        </div>
+
+        <div class="pagination" id="pagination">
+            <!-- Pagination buttons will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="mediaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+<!-- Footer -->
+ <br>
+ <br>
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Sample media data
+        const mediaData = [
+            {
+                id: 1,
+                title: "Yeni Proje Lansmanı",
+                description: "Şirketimizin en yeni projesi büyük bir başarıyla hayata geçirildi. Bu proje ile müşterilerimize daha iyi hizmet sunmayı hedefliyoruz.",
+                fullDescription: "Şirketimizin en yeni projesi büyük bir başarıyla hayata geçirildi. Bu proje ile müşterilerimize daha iyi hizmet sunmayı hedefliyoruz. Proje kapsamında geliştirilen yenilikçi çözümler, sektördeki standartları yeniden belirleyecek. Uzman ekibimiz tarafından 6 ay süreyle geliştirilen bu proje, kullanıcı deneyimini merkeze alarak tasarlandı. Modern teknolojiler kullanılarak oluşturulan bu platform, güvenlik ve performans açısından sektörün en üst seviyesinde yer alıyor.",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+                isInstagram: false
+            },
+            {
+                id: 2,
+                title: "Instagram: Ofis Hayatından Kareler",
+                description: "Ekibimizin günlük çalışma anlarından keyifli kareler. #ofishayatı #takımruhu",
+                fullDescription: "Ekibimizin günlük çalışma anlarından keyifli kareler. #ofishayatı #takımruhu. Yaratıcı ve dinamik ekibimiz, her gün yeni fikirler üretmek için bir araya geliyor. Açık ofis konseptimiz sayesinde departmanlar arası iletişim çok güçlü. Kahve molalarımız, beyin fırtınası seanslarımız ve başarılarımızı kutlama anlarımız işte böyle görünüyor.",
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
+                isInstagram: true
+            },
+            {
+                id: 3,
+                title: "Teknoloji Zirvesi 2024",
+                description: "Sektörün önde gelen isimlerinin katıldığı teknoloji zirvesinde önemli gelişmeler paylaşıldı.",
+                fullDescription: "Sektörün önde gelen isimlerinin katıldığı teknoloji zirvesinde önemli gelişmeler paylaşıldı. Yapay zeka, blockchain ve nesnelerin interneti gibi konularda derinlemesine tartışmalar yapıldı. Şirketimiz CEO'su da panelist olarak katılım gösterdi ve gelecek 5 yıl için öngörülerini paylaştı. Etkinlik boyunca 200'den fazla teknoloji lideri bir araya geldi ve sektörün geleceğini şekillendirecek önemli kararlar alındı.",
+                image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=400&fit=crop",
+                isInstagram: false
+            },
+            {
+                id: 4,
+                title: "Instagram: Yeni Ofis Dekorasyonu",
+                description: "Ofisimizin yeni görünümü herkesi büyüledi! Modern tasarım ile çalışma alanları daha keyifli hale geldi.",
+                fullDescription: "Ofisimizin yeni görünümü herkesi büyüledi! Modern tasarım ile çalışma alanları daha keyifli hale geldi. İç mimar ekibimiz ile birlikte hazırlanan bu proje, çalışan memnuniyetini artırmayı hedefliyor. Doğal ışık kullanımı, yeşil alanlar ve ergonomik mobilyalar ile çalışma ortamımız tamamen yenilendi. Renk psikologisinden faydalanılarak seçilen tonlar, yaratıcılığı ve motivasyonu artırıyor.",
+                image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
+                isInstagram: true
+            },
+            {
+                id: 5,
+                title: "Başarı Hikayeleri",
+                description: "Müşterilerimizin başarı hikayelerini sizlerle paylaşıyoruz. İş birliğimizin meyvelerini görmek bizi mutlu ediyor.",
+                fullDescription: "Müşterilerimizin başarı hikayelerini sizlerle paylaşıyoruz. İş birliğimizin meyvelerini görmek bizi mutlu ediyor. Son 1 yılda 50'den fazla proje başarıyla tamamlandı ve müşteri memnuniyet oranımız %98'e ulaştı. Her bir proje, benzersiz zorluklarla geldi ve ekibimiz yaratıcı çözümler üretti. Müşterilerimizin hedeflerine ulaşmasına yardımcı olmak, en büyük motivasyon kaynağımız olmaya devam ediyor.",
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+                isInstagram: false
+            },
+            {
+                id: 6,
+                title: "Instagram: Takım Buluşması",
+                description: "Haftalık takım buluşmamızda yeni projeler ve hedefler üzerine konuştuk. Güçlü bir ekip ruhu! 🚀",
+                fullDescription: "Haftalık takım buluşmamızda yeni projeler ve hedefler üzerine konuştuk. Güçlü bir ekip ruhu! 🚀 Her hafta düzenlediğimiz bu toplantılar, ekip üyeleri arasındaki iletişimi güçlendiriyor. Projelerimizin gidişatını değerlendiriyor, karşılaştığımız zorlukları birlikte çözüyor ve gelecek planlarımızı tartışıyoruz. Bu buluşmalar sayesinde herkes aynı sayfada ve motivasyonumuz her geçen gün artıyor.",
+                image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop",
+                isInstagram: true
+            },
+            {
+                id: 7,
+                title: "Yenilikçi Çözümler",
+                description: "Ar-Ge departmanımızın geliştirdiği yenilikçi çözümler, sektörde ses getirmeye devam ediyor.",
+                fullDescription: "Ar-Ge departmanımızın geliştirdiği yenilikçi çözümler, sektörde ses getirmeye devam ediyor. Son 6 ayda geliştirilen 3 yeni ürün, beta testlerinde mükemmel sonuçlar aldı. Kullanıcı geri bildirimlerini dikkate alarak sürekli geliştirme yapıyoruz. Patent başvuruları da devam ediyor ve uluslararası arenada rekabet gücümüzü artıracak bu çalışmalar, şirketimizin geleceğini şekillendiriyor.",
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
+                isInstagram: false
+            },
+            {
+                id: 8,
+                title: "Instagram: Proje Kutlaması",
+                description: "Büyük projenin başarıyla tamamlanması için pasta kestik! Harika bir ekip çalışmasının sonucu 🎉",
+                fullDescription: "Büyük projenin başarıyla tamamlanması için pasta kestik! Harika bir ekip çalışmasının sonucu 🎉 3 aylık yoğun çalışmanın ardından hedeflediğimiz tüm kriterler başarıyla karşılandı. Müşterimizin memnuniyeti ve ekibimizin özverili çalışması bu başarının temel taşları oldu. Böyle anları birlikte yaşamak, motivasyonumuzu en üst seviyede tutuyor ve gelecek projeler için daha da güçlü olmamızı sağlıyor.",
+                image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop",
+                isInstagram: true
+            },
+            {
+                id: 9,
+                title: "Sürdürülebilirlik İnisiyatifi",
+                description: "Çevre dostu uygulamalarımızla sürdürülebilir bir gelecek için çalışıyoruz.",
+                fullDescription: "Çevre dostu uygulamalarımızla sürdürülebilir bir gelecek için çalışıyoruz. Karbon ayak izimizi %40 azaltmayı hedeflediğimiz bu proje kapsamında, yenilenebilir enerji kullanımını artırdık. Ofisimizde geri dönüşüm oranımız %95'e ulaştı ve dijital dönüşüm ile kağıt kullanımını minimuma indirdik. Çalışanlarımıza sürdürülebilirlik konusunda eğitimler veriyor ve bu bilinci tüm paydaşlarımızla paylaşıyoruz.",
+                image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=400&fit=crop",
+                isInstagram: false
+            },
+            {
+                id: 10,
+                title: "Instagram: Kahve Molası",
+                description: "Günün en keyifli anlarından biri: kahve molası! ☕ Enerjimizi toparlayıp yeni fikirler üretiyoruz.",
+                fullDescription: "Günün en keyifli anlarından biri: kahve molası! ☕ Enerjimizi toparlayıp yeni fikirler üretiyoruz. Özel olarak ithal ettiğimiz kahve çekirdekleri ve profesyonel kahve makinemiz sayesinde ofisimizde kafe kalitesinde kahve içebiliyoruz. Bu molalar sadece dinlenme değil, aynı zamanda yaratıcı fikirlerin doğduğu anlar oluyor. Farklı departmanlardan arkadaşlarımızla sohbet etmek, yeni bakış açıları kazanmamızı sağlıyor.",
+                image: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600&h=400&fit=crop",
+                isInstagram: true
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        const totalPages = Math.ceil(mediaData.length / itemsPerPage);
+
+        function renderMediaCards() {
+            const mediaGrid = document.getElementById('mediaGrid');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = mediaData.slice(startIndex, endIndex);
+
+            mediaGrid.innerHTML = '';
+
+            pageData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'media-card';
+                
+                // Different animation for each card
+                const animations = ['animate-slide-left', 'animate-slide-right', 'animate-drop', 'animate-rotate'];
+                const animationClass = animations[index % animations.length];
+                
+                setTimeout(() => {
+                    card.classList.add(animationClass);
+                }, index * 200);
+
+                const shortDescription = item.description.length > 120 ? 
+                    item.description.substring(0, 120) + '...' : item.description;
+
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <div class="card-content">
+                        ${item.isInstagram ? '<span class="social-tag">Instagram</span>' : ''}
+                        <h3 class="card-title">${item.title}</h3>
+                        <p class="card-description">${shortDescription}</p>
+                        ${item.description.length > 120 ? 
+                            `<button class="read-more-btn" onclick="openModal(${item.id})">Devamını Oku</button>` : ''}
+                    </div>
+                `;
+
+                mediaGrid.appendChild(card);
+            });
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                button.textContent = i;
+                button.onclick = () => changePage(i);
+                pagination.appendChild(button);
+            }
+        }
+
+        function changePage(page) {
+            if (page !== currentPage) {
+                currentPage = page;
+                renderMediaCards();
+                renderPagination();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function openModal(id) {
+            const item = mediaData.find(item => item.id === id);
+            if (item) {
+                document.getElementById('modalImage').src = item.image;
+                document.getElementById('modalTitle').textContent = item.title;
+                document.getElementById('modalDescription').textContent = item.fullDescription;
+                document.getElementById('mediaModal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('mediaModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('mediaModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        renderMediaCards();
+        renderPagination();
+    </script>
+</body>
+
+<script src="js/script.js"></script>
+<script src="js/loadcomponents.js"></script>
+</html>

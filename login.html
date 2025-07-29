@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MÜMDER Giriş / Üyelik</title>
+  <style>
+
+      
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }  
+
+    .container {
+      width: 400px;
+      max-width: 95%;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+      perspective: 1000px;
+      height: 620px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 30px 25px; 
+      backface-visibility: hidden;
+      transition: transform 0.8s ease-in-out;
+      overflow-y: auto; 
+    }
+
+    .form-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 22px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 16px;
+      background: #764ba2;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .form-box button:hover {
+      background: #5a3c91;
+    }
+
+    .onay{
+      display: inline-block;
+      margin-top: 10px;
+      color: #555;
+      font-size: 12px;
+    }
+
+    .switch {
+      width: 100%;
+      padding: 12px;
+      margin-top: 16px;
+      background: #764ba2;
+      border: none;
+      color: white;
+      text-align: center;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .form-box switch:hover {
+      background: #5a3c91;
+    }
+
+    .login-box {
+      background: #ffffff;
+      transform: rotateY(0deg);
+      z-index: 2;
+    }
+
+    .register-box {
+      background: #ffffff;
+      transform: rotateY(180deg);
+    }
+
+    .flipper {
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flipped {
+      transform: rotateY(180deg);
+    }
+
+    #navbar-placeholder {
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+ 
+<div id="navbar-placeholder"></div>
+ 
+  
+  <br>
+  
+  <div class="container">
+    
+    <div class="flipper" id="flipper">
+
+        <!-- REGISTER FORM -->
+    
+<div class="form-box register-box">
+  <h2>Üye Ol</h2>
+  <form action="form_kayit.php" method="POST" enctype="multipart/form-data">
+  <input type="text" name="ad_soyad" placeholder="Ad Soyad" required />
+  <input type="email" name="email" placeholder="E-posta" required />
+  <input type="text" name="telefon" placeholder="Telefon" required />
+  <input type="text" name="dogum_yeri" placeholder="Doğum Yeri" required />
+  <input type="date" name="dogum_tarihi" placeholder="Doğum Tarihi" required />
+
+  <select name="cinsiyet" required>
+    <option disabled selected value="">Cinsiyet Seçin</option>
+    <option value="Kadın">Kadın</option>
+    <option value="Erkek">Erkek</option>
+    <option value="Diğer">Diğer</option>
+  </select>
+
+  <input type="text" name="ikametgah" placeholder="İkametgah (Şehir / İlçe)" required />
+  <input type="text" name="universite" placeholder="Üniversite" required />
+  <input type="text" name="bolum" placeholder="Bölüm" id="bolum" required />
+
+  <input type="text" name="sinif" placeholder="Kaçıncı Sınıf?" id="sinif" oninput="disableMezuniyet()" />
+  <input type="text" name="mezuniyet_yili" placeholder="Mezuniyet Yılı" id="mezuniyet" oninput="disableSinif()" />
+
+  <input type="text" name="meslek" placeholder="Meslek" />
+  <input type="text" name="referans" placeholder="Referans" />
+
+  <input type="text" name="tc_no" placeholder="TC Kimlik No / Yabancı Uyruk No" required />
+  <input type="text" name="pasaport_turu" placeholder="Pasaport Türü (Yeşil, Bordo vb.)" required />
+  <input type="text" name="pasaport_no" placeholder="Pasaport Numarası" required />
+
+  <label style="font-size: 12px; margin-top: 10px; display: block; color: #555;">Öğrenci belgenizi yükleyiniz</label>
+  <input type="file" name="belge" accept=".pdf,.jpg,.png" required />
+
+  <label style="font-size: 12px; margin-top: 10px; display: block; color: #555;">
+    Yönetim Kurulu Başkanlığı’na; Derneğinizin tüzüğünü inceledim. Tüzükte belirtilen amaçların gerçekleşmesine katkıda bulunmak istiyorum. Dernekler kanuna göre üye olmamda herhangi bir sakınca yoktur. Kişisel verilerin korunması kanunu kapsamında formdaki bilgilerin dernek faaliyetlerinde kullanılmasına izin veriyorum. Formdaki bilgilerin doğruluğunu taahhüt eder, üyeliğimin kabulünü dilerim. <br><br>
+    <input type="checkbox" id="onayKutusu" name="onay" value="1" required />
+<span>Üyelik Beyanını Onaylıyorum</span>
+
+  </label>
+
+  <button type="submit">Kayıt Ol</button>
+</form>
+
+  <div class="switch" onclick="flipCard(false)">Yönetici Girişi</div>
+</div>
+
+
+      <!-- LOGIN FORM -->
+      <div class="form-box login-box">
+        <h2>Yönetici Girişi</h2>
+        <input type="text" id="adminUser" placeholder="Kullanıcı Adı" />
+        <input type="password" id="adminPass" placeholder="Şifre" />
+        <button onclick="adminLogin()">Giriş Yap</button>
+        <div class="switch" onclick="flipCard(true)">Kayıt Ol</div>
+      </div>
+
+      
+
+    </div>
+  </div>
+
+<br>
+
+  <script>
+    function flipCard(showRegister) {
+      const flipper = document.getElementById('flipper');
+      if (showRegister) {
+        flipper.classList.add('flipped');
+      } else {
+        flipper.classList.remove('flipped');
+      }
+    }
+
+    function adminLogin() {
+      const user = document.getElementById("adminUser").value;
+      const pass = document.getElementById("adminPass").value;
+      if (user === "MUMDER1453" && pass === "oxfC1907.&") {
+        sessionStorage.setItem("adminGiris", "true"); // Giriş onaylandı
+        alert("Giriş başarılı. Kontrol paneline yönlendiriliyorsunuz.");
+        window.location.href = "/AdminPanel.html";
+      } else {
+        alert("Kullanıcı adı veya şifre hatalı!");
+      }
+    }
+
+    function disableMezuniyet() {
+  const sinif = document.getElementById("sinif").value;
+  const mezuniyet = document.getElementById("mezuniyet");
+  if (sinif.trim() !== "") {
+    mezuniyet.disabled = true;
+    mezuniyet.value = "";
+  } else {
+    mezuniyet.disabled = false;
+  }
+}
+
+function disableSinif() {
+  const mezuniyet = document.getElementById("mezuniyet").value;
+  const sinif = document.getElementById("sinif");
+  if (mezuniyet.trim() !== "") {
+    sinif.disabled = true;
+    sinif.value = "";
+  } else {
+    sinif.disabled = false;
+  }
+}
+
+function kaydol() {
+  const inputs = document.querySelectorAll(".register-box input, .register-box select");
+  const dosya = inputs[inputs.length - 4]; // file input
+  const onay = document.getElementById("onayKutusu").checked;
+  let bosAlanVar = false;
+
+  for (let input of inputs) {
+    // Meslek ve Referans alanlarını atla
+    if (input.placeholder === "Meslek" || input.placeholder === "Referans") continue;
+
+    // Eğer sinif veya mezuniyet disabled ise onu kontrol etme
+    if (input.id === "mezuniyet" && input.disabled) continue;
+    if (input.id === "sinif" && input.disabled) continue;
+
+    if ((input.type === "text" || input.type === "email" || input.type === "date" || input.tagName === "SELECT") && input.value.trim() === "") {
+      bosAlanVar = true;
+      break;
+    }
+  }
+
+  if (bosAlanVar) {
+    alert("Lütfen gerekli tüm alanları doldurunuz.");
+    return;
+  }
+
+  if (dosya.files.length === 0) {
+    alert("Lütfen belge ekleyiniz (PDF/JPG/PNG).");
+    return;
+  }
+
+  if (!onay) {
+    alert("Lütfen üyelik beyanını onaylayınız.");
+    return;
+  }
+
+  // Gerekli alanlar doluysa kayıt tamamlandı mesajı
+  alert("Kayıt işlemi tamamlandı.");
+}
+
+  </script>
+<script src="js/loadcomponents.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÜMDER - Marmara Üniversitesi Mezun ve Mensupları Derneği</title>
+    <link rel="stylesheet" href="css/Home.css">
+    <script src="js/loadcomponents.js" defer></script>
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader-container">
+        <div class="particles" id="particles"></div>
+        <div class="logo-animation">
+            <div class="university-icon">🎓</div>
+            <h1 class="main-title">Marmara Üniversitesi Mezunları</h1>
+            <p class="sub-title">Yükleniyor...</p>
+            <div class="loading-container">
+                <div class="loading-bar"></div>
+            </div>
+            <p class="loading-text">Sayfa hazırlanıyor...</p>
+        </div>
+    </div>
+
+    <!-- Ana İçerik -->
+    <div id="main-content" style="display: none;">
+        <!-- Navigasyon Çubuğu -->
+        <div id="navbar-placeholder"></div>
+
+        <!-- Hero Bölümü -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Marmara Ailesine Hoş Geldiniz</h1>
+                <p>Marmara Üniversitesi Mezun ve Mensupları Derneği olarak, güçlü bir network ile geleceğinizi şekillendiriyoruz.</p>
+                <div class="cta-buttons">
+                    <a href="tarihcemiz.html" class="cta-btn cta-primary">Hakkımızda</a>
+                    <a href="login.html" class="cta-btn cta-secondary">Üye Ol</a>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- Özellikler Bölümü -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Neler Sunuyoruz?</h2>
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll">
+                        <span class="feature-icon">🎓</span>
+                        <h3>Burs Programları</h3>
+                        <p>İhtiyaç sahibi öğrencilerimize eğitim hayatlarında destek sağlıyoruz.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <span class="feature-icon">🚀</span>
+                        <h3>Kariyer Desteği</h3>
+                        <p>Mezunlarımızın iş hayatına başlamaları için rehberlik ve network imkanı sunuyoruz.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <span class="feature-icon">🤝</span>
+                        <h3>Networking</h3>
+                        <p>Güçlü bir mezun ağı ile profesyonel bağlantılar kurmanıza yardımcı oluyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- İstatistikler Bölümü -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="500">0</span>
+                        <p class="stat-label">Aktif Üye</p>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="200">0</span>
+                        <p class="stat-label">Burslu Öğrenci</p>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="10">0</span>
+                        <p class="stat-label">Yıllık Deneyim</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="baskan">
+            <div class="baskan-photo-area">
+                <img src="image/mehmet-genc-başkanımız.jpeg" alt="Başkan" class="baskan-photo">
+                <div class="baskan-name">
+                    <strong>MEHMET GENÇ</strong><br>
+                    <span>YÖNETİM KURULU BAŞKANI</span>
+                </div>
+            </div>
+            <div class="baskan-content-area">
+                <h2 class="baskan-title">Başkandan Mesaj</h2>
+                <div class="baskan-vurgu">İddialı ve inançlı nesiller için...</div>
+                <p class="baskan-desc">
+                    Bu toprakların hamuruyla yoğrulmuş milli benliğimin izdüşümünde iddialı ve inançlı nesiller için çalışma azim ve gayretinde bir MÜMDER için...
+                </p>
+            </div>
+        </section>
+
+        <section class="support-block">
+            <div class="support-container">
+                <div class="support-text">
+                    <h2>Faaliyetlerimize Destek Olabilirsiniz</h2>
+                    <p>“Taşı delen suyun gücü değil, damlaların sürekliliğidir”</p>
+                </div>
+                <a href="Projeler.html" target="_blank" class="support-btn">
+                    SPONSOR OL <span style="font-size:1em;">&#8599;</span>
+                </a>
+            </div>
+        </section>
+
+        <!--
+        <section class="space">
+            <div class="space-block"></div>
+        </section>
+        -->
+
+        <!-- Haberler Bölümü -->
+        <section class="news">
+            <div class="container">
+                <h2 class="section-title">Son Haberler</h2>
+                <div class="news-grid">
+                    <div class="news-card animate-on-scroll">
+                        <div class="news-image">Haberler Yakında</div>
+                        <div class="news-content">
+                            <p class="news-date">2 Temmuz 2025</p>
+                            <h3 class="news-title">MÜMDER Yeni Dönem Başlıyor</h3>
+                            <p class="news-excerpt">Yeni dönemde üyelerimiz için hazırladığımız etkinlik ve programlar...</p>
+                        </div>
+                    </div>
+                    <div class="news-card animate-on-scroll">
+                        <div class="news-image">Burs Programı</div>
+                        <div class="news-content">
+                            <p class="news-date">1 Temmuz 2025</p>
+                            <h3 class="news-title">Burs Başvuruları Başladı</h3>
+                            <p class="news-excerpt">2025-2026 eğitim öğretim yılı için burs başvuruları başlamıştır...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Altbilgi -->
+        <div id="footer-placeholder"></div>
+    </div>
+</body>
+</html>

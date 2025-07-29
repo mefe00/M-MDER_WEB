@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÜMDER - Projelerimiz</title>
+    <script src="js/loadcomponents.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+        color: #1565c0;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        margin-top: 2.5rem;
+        padding: 3rem 0 2rem 0;
+        background: linear-gradient(90deg, #e3f2fd 60%, #fff 100%);
+        border-radius: 32px;
+        box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+        animation: fadeInDown 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .header h1 {
+        color: #1565c0;
+        font-size: 2.4rem;
+        font-weight: 800;
+        margin-bottom: 1.2rem;
+        background: linear-gradient(45deg, #1565c0, #1976d2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 1px;
+    }
+
+    .header p {
+        color: #1976d2;
+        font-size: 1.18rem;
+        max-width: 600px;
+        margin: 0 auto;
+        font-weight: 500;
+        opacity: 0.92;
+    }
+
+    .donation-info {
+        background: linear-gradient(90deg, #e3f2fd 60%, #fff 100%);
+        color: #1565c0;
+        padding: 2.5rem 2rem;
+        border-radius: 24px;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .donation-info h2 {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+        color: #1565c0;
+        font-weight: 800;
+    }
+
+    .bank-info {
+        background: #fff;
+        padding: 1.5rem 1.2rem;
+        border-radius: 14px;
+        margin: 1.5rem auto 0 auto;
+        max-width: 420px;
+        box-shadow: 0 2px 12px rgba(21,101,192,0.07);
+        text-align: left;
+    }
+
+    .bank-info h3 {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: #1976d2;
+        font-weight: 700;
+    }
+
+    .bank-info p {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* .stats-section {
+        background: #fff;
+        padding: 2.5rem 2rem;
+        border-radius: 24px;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2.2rem;
+        text-align: center;
+    }
+
+    .stat-item {
+        padding: 1.2rem 0;
+        transition: transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.3s, background 0.3s, filter 0.3s;
+        will-change: transform, box-shadow, filter;
+        border-radius: 16px;
+    }
+
+    .stat-item:hover {
+        transform: scale(1.12) rotate(-1deg);
+        box-shadow: 0 12px 32px rgba(21,101,192,0.16);
+        background: #e3f2fd;
+        filter: brightness(1.08) drop-shadow(0 0 8px #b3e5fc);
+        z-index: 2;
+    }
+
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1565c0;
+        margin-bottom: 10px;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        color: #1976d2;
+        font-weight: 500;
+    } */
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.2rem;
+        margin-bottom: 3.5rem;
+    }
+
+    .project-card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+        transition: transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+        border: 1.5px solid #e3f2fd;
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 16px 40px rgba(21,101,192,0.18);
+        border-color: #1976d2;
+    }
+
+    .project-image {
+        width: 100%;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        border-radius: 20px 20px 0 0;
+        background-color: #e3f2fd; /* <-- DEĞİŞİKLİK BURADA YAPILDI */
+    }
+
+    .project-content {
+        padding: 1.7rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    .project-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1565c0;
+        margin-bottom: 0.7rem;
+        line-height: 1.3;
+    }
+
+    .project-description {
+        color: #333;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+    }
+
+    .project-status {
+        display: inline-block;
+        padding: 8px 18px;
+        background-color: #27ae60;
+        color: white;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+    }
+
+    .project-status.completed {
+        background-color: #1565c0;
+    }
+
+    .project-status.ongoing {
+        background-color: #f39c12;
+    }
+
+    .project-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e3f2fd;
+    }
+
+    .project-meta {
+        font-size: 0.95rem;
+        color: #1976d2;
+        font-weight: 500;
+    }
+
+    .support-btn {
+        background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+        color: white;
+        border: none;
+        padding: 10px 28px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: background 0.2s, color 0.2s, transform 0.18s;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1rem;
+        box-shadow: 0 2px 8px rgba(21,101,192,0.10);
+    }
+
+    .support-btn:hover {
+        background: #1976d2;
+        color: #fff;
+        transform: scale(1.07);
+    }
+
+    .pledge-section {
+        background: #fff;
+        padding: 2.5rem 2rem;
+        border-radius: 20px;
+        margin: 3rem 0;
+        box-shadow: 0 8px 32px rgba(21,101,192,0.10);
+        animation: fadeInUp 1s cubic-bezier(.4,2,.6,1);
+    }
+
+    .pledge-section h2 {
+        color: #1565c0;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 800;
+    }
+
+    .pledge-description {
+        text-align: center;
+        color: #1976d2;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        font-weight: 500;
+    }
+
+    .pledge-form {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #1565c0;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e3f2fd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: #fafafa;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #1565c0;
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(21,101,192,0.08);
+    }
+
+    .amount-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .amount-btn {
+        padding: 12px 15px;
+        border: 2px solid #e3f2fd;
+        background-color: #fafafa;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1565c0;
+    }
+
+    .amount-btn:hover {
+        border-color: #1565c0;
+        background-color: #e3f2fd;
+    }
+
+    .amount-btn.active {
+        border-color: #1565c0;
+        background-color: #1565c0;
+        color: white;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px 30px;
+        background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, transform 0.18s;
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px;
+        box-shadow: 0 2px 8px rgba(21,101,192,0.10);
+    }
+
+    .submit-btn:hover {
+        background: #1976d2;
+        color: #fff;
+        transform: scale(1.04);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .submit-btn.loading {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+    .btn-text {
+        display: inline-block;
+        transition: opacity 0.3s ease;
+    }
+
+    .btn-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .spinner {
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+    }
+
+    .spinner .path {
+        stroke-dasharray: 90;
+        stroke-dashoffset: 0;
+        animation: dash 1.5s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes dash {
+        0% {
+            stroke-dasharray: 1, 150;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -124;
+        }
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+        .container {
+            padding: 0 1rem;
+        }
+        .header {
+            padding: 2rem 0 1.2rem 0;
+            margin-top: 1.2rem;
+        }
+        .header h1 {
+            font-size: 1.7rem;
+        }
+        .donation-info {
+            padding: 1.2rem 0.5rem;
+        }
+        /* .stats-section {
+            padding: 1.2rem 0.5rem;
+        }
+        .stats-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        } */
+        .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+        .project-content {
+            padding: 1.2rem;
+        }
+        .pledge-section {
+            padding: 1.2rem 0.5rem;
+            margin: 2rem 0;
+        }
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .header h1 {
+            font-size: 1.2rem;
+        }
+        .donation-info h2 {
+            font-size: 1.2rem;
+        }
+        .pledge-section h2 {
+            font-size: 1.2rem;
+        }
+        /* .stat-number {
+            font-size: 1.2rem;
+        } */
+        /* .stats-grid {
+            grid-template-columns: 1fr;
+        } */
+        .amount-buttons {
+            grid-template-columns: 1fr;
+        }
+     }
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+<br>
+
+    <div class="container">
+
+
+
+
+        <div class="header">
+            <h1>Projelerimiz</h1>
+            <p>Marmara Üniversitesi Mezun ve Mensupları Derneği olarak toplumsal kalkınmaya katkı sağlayan projelerimiz</p>
+        </div>
+
+        <div class="donation-info">
+            <h2>Bağış Hesap Bilgileri</h2>
+            <p>Projelerimize destek olmak için aşağıdaki hesap bilgilerini kullanabilirsiniz:</p>
+            
+            <div class="bank-info">
+                <h3>Banka Bilgileri</h3>
+                <p><strong>Banka:</strong> Kuveyt Türk Katılım Bankası A.Ş.</p>
+                <p><strong>Hesap Adı:</strong> Marmara Üniversitesi Mezun ve Mensupları Derneği</p>
+                <p><strong>IBAN:</strong> TR35 0020 5000 0912 8488 600001</p>
+            </div>
+        </div>
+
+    <script>
+        // Form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const amountButtons = document.querySelectorAll('.amount-btn');
+            const customAmountInput = document.getElementById('customAmount');
+            const otherAmountGroup = document.getElementById('otherAmountGroup');
+            const otherAmountInput = document.getElementById('otherAmount');
+            const submitBtn = document.getElementById('submitBtn');
+            const pledgeForm = document.getElementById('pledgeForm');
+
+            // Handle amount button clicks
+            amountButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    amountButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    if (this.dataset.amount === 'other') {
+                        // Show other amount input
+                        otherAmountGroup.style.display = 'block';
+                        customAmountInput.value = '';
+                        otherAmountInput.focus();
+                    } else {
+                        // Hide other amount input and set value
+                        otherAmountGroup.style.display = 'none';
+                        customAmountInput.value = this.dataset.amount;
+                        otherAmountInput.value = '';
+                    }
+                });
+            });
+
+            // Handle other amount input
+            otherAmountInput.addEventListener('input', function() {
+                if (this.value) {
+                    customAmountInput.value = this.value;
+                }
+            });
+
+            // Handle custom amount input
+            customAmountInput.addEventListener('input', function() {
+                if (this.value) {
+                    // Remove active class from all buttons if user types directly
+                    const activeBtn = document.querySelector('.amount-btn.active');
+                    if (activeBtn && activeBtn.dataset.amount !== 'other') {
+                        amountButtons.forEach(btn => btn.classList.remove('active'));
+                    }
+                }
+            });
+
+            // Handle form submission
+            pledgeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitBtn.classList.add('loading');
+                document.querySelector('.btn-text').style.opacity = '0';
+                document.querySelector('.btn-spinner').style.display = 'block';
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    // Hide loading state
+                    submitBtn.classList.remove('loading');
+                    document.querySelector('.btn-text').style.opacity = '1';
+                    document.querySelector('.btn-spinner').style.display = 'none';
+                    
+                    // Show success message
+                    alert('Taahhüdünüz başarıyla alındı! Dernek ekibimiz en kısa sürede sizinle iletişime geçecektir.');
+                    
+                    // Reset form
+                    pledgeForm.reset();
+                    amountButtons.forEach(btn => btn.classList.remove('active'));
+                    otherAmountGroup.style.display = 'none';
+                }, 2000);
+            });
+        });
+    </script>
+
+       
+<!-- 
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1,250+</div>
+                    <div class="stat-label">Desteklenen Öğrenci</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85</div>
+                    <div class="stat-label">Tamamlanan Proje</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">₺2.5M</div>
+                    <div class="stat-label">Toplam Bağış</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Gönüllü Bağışçı</div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/ogrenci-destek.png')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status ongoing">Devam Eden</div> -->
+                    <h3 class="project-title">İhtiyaç Sahibi Öğrenci Destekleri</h3>
+                    <p class="project-description">Başta yetim, öksüz, engelli, depremzede ve şehit çocukları olmak üzere ihtiyaç sahibi üniversite öğrencilerimize maddi destek sağlıyoruz.</p>
+                    <div class="project-details">
+                        <!-- <div class="project-meta">350+ öğrenci desteklendi</div> -->
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/Ogrencilikten-Profesorluge-Giden-Akademik-Kariyer-Basamaklari-Kapak.jpg')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status ongoing">Devam Eden</div> -->
+                    <h3 class="project-title">Akademik Faaliyet Destekleri</h3>
+                    <p class="project-description">Akademik faaliyetler için gerekli olan kaynakların oluşturulması ve üniversitemizin akademik kadrosu için proje bazında destek sağlıyoruz.</p>
+                    <div class="project-details">
+                        <!-- <div class="project-meta">25 akademik proje</div> -->
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/basari-bursu.jpg')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status ongoing">Devam Eden</div> -->
+                    <h3 class="project-title">Başarı Bursu Programı</h3>
+                    <p class="project-description">Üniversitemizi yükseköğretim sınavında tercih etmiş ilk 1000'e girmiş öğrencilerimizden başarılarının devamı için destek sağlıyoruz.</p>
+                    <div class="project-details">
+                        <!-- <div class="project-meta">180 başarılı öğrenci</div> -->
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/islam.png')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status completed">Tamamlandı</div> -->
+                    <h3 class="project-title">Ramazan Yardımları</h3>
+                    <p class="project-description">Ramazan ayında ihtiyaç sahibi aileler tespit edilerek bağışçılarımızın destekleri ile market çekleri hediye edilmektedir.</p>
+                    <div class="project-details">
+                        <!-- <div class="project-meta">450 aile desteklendi</div> -->
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/ulasımdestegi2023.png')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status ongoing">Devam Eden</div> -->
+                    <h3 class="project-title">Ulaşım Destekleri</h3>
+                    <p class="project-description">Derneğimiz ailesinden farklı ilde eğitim gören ihtiyaç sahibi üniversite öğrencilerimizin ulaşım giderlerini karşılıyor.</p>
+                    <div class="project-details">
+                        <!-- <div class="project-meta">120 öğrenci</div> -->
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/dernek-faaliyetleri.jpg')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status ongoing">Devam Eden</div> -->
+                    <h3 class="project-title">Dernek Faaliyetleri</h3>
+                    <p class="project-description">Dernek faaliyetlerinin sekteye uğramaması adına dernek tefrişatı, temizlik malzemesi, demirbaş vb. dernek işleri için kaynak oluşturuyoruz.</p>
+                    <div class="project-details">
+                        <div class="project-meta">Sürekli ihtiyaç</div>
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/corba.jpeg')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status ongoing">Devam Eden</div> -->
+                    <h3 class="project-title">Sıcak Çorba Dağıtımı</h3>
+                    <p class="project-description">Ramazan ayında üniversitemiz bahçesinde öğrencilerimize bağışçılarımızın yardımlarıyla sıcak çorba dağıtımında bulunuyoruz.</p>
+                    <div class="project-details">
+                        <div class="project-meta">Ramazan ayı</div>
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image/kurban.webp')"></div>
+                <div class="project-content">
+                    <!-- <div class="project-status completed">Tamamlandı</div> -->
+                    <h3 class="project-title">Kurban Bağışları</h3>
+                    <p class="project-description">Yurtdışında emanet ettiğiniz kurban bağışlarınızı ihtiyaç sahibi yoksul ailelere, kimsesizlere ve ilim talebelerine ulaştırıyoruz.</p>
+                    <div class="project-details">
+                        <!-- <div class="project-meta">285 kurban bağışı</div> -->
+                        <a href="Projeler.html" class="support-btn">Destek Ol</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pledge-section">
+            <h2>Taahhütte Bulun</h2>
+            <p class="pledge-description">
+                <strong>Siz değerli bağışçılarımız bir taahhütte bulunduklarında dernek ekibimiz sizinle iletişime geçerek taahhütlerinizin gerçekleşmesine yardımcı olacaklardır.</strong>
+            </p>
+
+            <form class="pledge-form" id="pledgeForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Ad Soyad *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta Adresi *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Telefon Numarası *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customAmount">Bağış Tutarı (₺) *</label>
+                        <input type="number" id="customAmount" name="customAmount" min="1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hızlı Bağış Tutarı Seçimi</label>
+                    <div class="amount-buttons">
+                        <button type="button" class="amount-btn" data-amount="100">100 ₺</button>
+                        <button type="button" class="amount-btn" data-amount="200">200 ₺</button>
+                        <button type="button" class="amount-btn" data-amount="300">300 ₺</button>
+                        <button type="button" class="amount-btn" data-amount="400">400 ₺</button>
+                        <button type="button" class="amount-btn" data-amount="500">500 ₺</button>
+                        <button type="button" class="amount-btn" data-amount="750">750 ₺</button>
+                        <button type="button" class="amount-btn" data-amount="1000">1000 ₺</button>
+                        <button type="button" class="amount-btn other-amount" data-amount="other">Diğer Tutar</button>
+                    </div>
+                </div>
+
+                <div class="form-group" id="otherAmountGroup" style="display: none;">
+                    <label for="otherAmount">Diğer Tutar (₺)</label>
+                    <input type="number" id="otherAmount" name="otherAmount" min="1" placeholder="Tutarı giriniz">
+                </div>
+
+                <div class="form-group">
+                    <label for="project">Proje Seçimi *</label>
+                    <select id="project" name="project" required>
+                        <option value="">Proje seçiniz</option>
+                        <option value="akademik-burs">Akademik Burs</option>
+                        <option value="basari-bursu">Başarı Bursu</option>
+                        <option value="dernek-faaliyetleri">Dernek Faaliyetleri</option>
+                        <option value="ihtiyac-bursu">İhtiyaç Bursu</option>
+                        <option value="kurban-bagisi">Kurban Bağışı</option>
+                        <option value="ogrenciye-corba">Öğrenciye Çorba</option>
+                        <option value="ramazan-kumanyasi">Ramazan Kumanyası</option>
+                        <option value="ulasim-bursu">Ulaşım Bursu</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">İletiniz</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Mesajınızı buraya yazabilirsiniz..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">Taahhüdümü Gönder</span>
+                    <span class="btn-spinner" style="display: none;">
+                        <svg class="spinner" viewBox="0 0 50 50">
+                            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="4"></circle>
+                        </svg>
+                    </span>
+                </button>
+            </form>
+        </div>
+
+        
+    </div>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+</body>
+</html>

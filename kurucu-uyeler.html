@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Kurulu - MÜMDER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700;800&family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #003366;
+            --secondary: #006699;
+            --accent: #0099cc;
+            --neon-blue: #00ffff;
+            --neon-purple: #8a2be2;
+            --neon-pink: #ff1493;
+            --dark: #0a0a0a;
+            --light: #f0f8ff;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(45deg, #000011, #001133, #003366);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ARKA PLAN ANİMASYONLARI */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 50%;
+            animation: floatShape 15s infinite linear;
+            opacity: 0.1;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            left: 80%;
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            left: 50%;
+            animation-delay: -10s;
+            animation-duration: 15s;
+        }
+
+        .shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            left: 20%;
+            animation-delay: -15s;
+            animation-duration: 30s;
+        }
+
+        .shape:nth-child(5) {
+            width: 90px;
+            height: 90px;
+            left: 70%;
+            animation-delay: -20s;
+            animation-duration: 18s;
+        }
+
+        @keyframes floatShape {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .glitch-container {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 50px rgba(0,255,255,0.5);
+            position: relative;
+        }
+
+        .hero-title::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff0040, #00ff40);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitch1 0.5s infinite;
+            z-index: -1;
+        }
+
+        .hero-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0040ff, #ff4000);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitch2 0.5s infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes textGlow {
+            0% { filter: brightness(1) contrast(1); }
+            100% { filter: brightness(1.2) contrast(1.3); }
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { 
+                clip-path: inset(0 0 0 0);
+                transform: translateX(0);
+            }
+            20% { 
+                clip-path: inset(0 100% 0 0);
+                transform: translateX(-2px);
+            }
+            40% { 
+                clip-path: inset(0 0 0 100%);
+                transform: translateX(2px);
+            }
+        }
+
+        @keyframes glitch2 {
+            0%, 100% { 
+                clip-path: inset(0 0 0 0);
+                transform: translateX(0);
+            }
+            30% { 
+                clip-path: inset(0 0 100% 0);
+                transform: translateX(3px);
+            }
+            70% { 
+                clip-path: inset(100% 0 0 0);
+                transform: translateX(-3px);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-top: 2rem;
+            color: var(--neon-blue);
+            animation: slideFromSides 2s ease-out, neonPulse 3s ease-in-out infinite;
+            text-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        @keyframes slideFromSides {
+            0% {
+                opacity: 0;
+                transform: translateX(-100vw);
+            }
+            50% {
+                transform: translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { 
+                text-shadow: 0 0 20px var(--neon-blue);
+                filter: brightness(1);
+            }
+            50% { 
+                text-shadow: 0 0 40px var(--neon-blue), 0 0 60px var(--neon-blue);
+                filter: brightness(1.3);
+            }
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            animation: bounceInUp 2s ease-out 1s both;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            background: linear-gradient(45deg, rgba(0,255,255,0.1), rgba(138,43,226,0.1));
+            backdrop-filter: blur(10px);
+            animation: statGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes statGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(0,255,255,0.3);
+                border-color: var(--neon-blue);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(138,43,226,0.5);
+                border-color: var(--neon-purple);
+            }
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            display: block;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: numberSpin 3s ease-out;
+        }
+
+        @keyframes numberSpin {
+            0% {
+                transform: rotateY(-180deg) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: rotateY(0deg) scale(1.2);
+            }
+            100% {
+                transform: rotateY(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .stat-label {
+            font-family: 'Chakra Petch', sans-serif;
+            color: var(--neon-blue);
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 2s both;
+        }
+
+        @keyframes bounceInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(200px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-30px);
+            }
+            80% {
+                transform: translateY(10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleWave 3s ease-in-out infinite, titleFloat 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes titleWave {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        /* FLIP CARD CONTAINER - TAMAMEN YENİDEN YAZILDI */
+        .flip-card-container {
+            perspective: 1500px;
+            width: 400px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .flip-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 25px;
+            border: 3px solid var(--neon-blue);
+            background: linear-gradient(135deg, rgba(0,51,102,0.95), rgba(0,102,153,0.95));
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px rgba(0,255,255,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .card-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(255,20,147,0.95));
+            border-color: var(--neon-pink);
+        }
+
+        .member-image {
+            width: 200px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid var(--neon-blue);
+            margin-bottom: 1.5rem;
+            filter: brightness(1.1) contrast(1.2);
+            transition: all 0.3s ease;
+        }
+
+        .card-face:hover .member-image {
+            transform: scale(1.05);
+            filter: brightness(1.3) contrast(1.4);
+        }
+
+        .member-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .member-position {
+            font-family: 'Chakra Petch', sans-serif;
+            color: var(--neon-pink);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .member-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e3f2fd;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .action-button {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            color: white;
+            font-weight: 700;
+            font-family: 'Chakra Petch', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,20,147,0.5);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .action-button:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* MEMBERS GRID */
+        .members-section {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            padding: 2rem 0;
+        }
+
+        .member-card-container {
+            perspective: 1500px;
+            width: 100%;
+            height: 450px;
+            animation: cardDrop var(--drop-duration, 1s) ease-out both;
+            animation-delay: var(--drop-delay, 0s);
+        }
+
+        @keyframes cardDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-100vh) rotateX(90deg);
+            }
+            70% {
+                transform: translateY(20px) rotateX(-10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+
+        .member-flip-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .member-flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .member-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 25px;
+            border: 3px solid var(--neon-blue);
+            background: linear-gradient(135deg, rgba(0,51,102,0.9), rgba(0,102,153,0.9));
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 40px rgba(0,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+
+        .member-card-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 4s infinite;
+        }
+
+        .member-card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, rgba(138,43,226,0.9), rgba(255,20,147,0.9));
+            border-color: var(--neon-pink);
+        }
+
+        .member-card-face .member-image {
+            width: 100%;
+            max-width: 180px;
+            height: 200px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--neon-blue);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.5s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            0% {
+                background: rgba(0,0,0,0);
+                backdrop-filter: blur(0px);
+            }
+            100% {
+                background: rgba(0,0,0,0.9);
+                backdrop-filter: blur(20px);
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(0,51,102,0.98), rgba(0,102,153,0.98));
+            border-radius: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 100px rgba(0,255,255,0.5);
+            animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalSlideIn {
+            0% {
+                transform: scale(0.3) rotate(180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-image {
+            width: 200px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--neon-pink);
+            box-shadow: 0 0 30px rgba(255,20,147,0.5);
+        }
+
+        .modal-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-position {
+            color: var(--neon-pink);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+
+        .modal-bio {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: justify;
+            padding: 0 2rem 2rem;
+            color: #e3f2fd;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: var(--neon-pink);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* BACK BUTTON */
+        .back-button {
+            position: fixed;
+            top: 100px;
+            left: 2rem;
+            z-index: 2000;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0,255,255,0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0);
+                box-shadow: 0 0 30px rgba(0,255,255,0.5);
+            }
+            50% { 
+                transform: translateY(-10px);
+                box-shadow: 0 10px 40px rgba(0,255,255,0.8);
+            }
+        }
+
+        .back-button:hover {
+            transform: scale(1.2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .stats-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .members-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .flip-card-container {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .back-button {
+                left: 1rem;
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- ANIMATED BACKGROUND -->
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+   
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+       
+        <!-- MEMBERS SECTION -->
+        <section class="members-section">
+            <h2 class="section-title fade-in">🔥 KURUCU ÜYELERİ 🔥</h2>
+            <div class="members-grid" id="membersGrid">
+                <!-- JavaScript ile doldurulacak -->
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <img id="modalImage" src="" alt="" class="modal-image">
+                <h3 id="modalName" class="modal-name"></h3>
+                <p id="modalPosition" class="modal-position"></p>
+            </div>
+            <div class="modal-bio" id="modalBio"></div>
+        </div>
+    </div>
+
+    <script>
+        // BOARD MEMBERS DATA
+        const boardMembers = [
+            {
+                id: 1,
+                name: "Hasan GÜNEŞ",
+                position: "",
+                image: "",
+                bio: ""
+            },
+            {
+                id: 2,
+                name: "Şahin AVŞAR",
+                position: "",
+                image: "image/Sahin-Avsar.jpg",
+                bio:""
+            },
+            {
+                id: 3,
+                name: "Hasan BİRKAN",
+                position: "",
+                image: "",
+                bio: ""
+            },
+            {
+                id: 4,
+                name: "Veysel EKMEN",
+                position: "",
+                image: "",
+                bio: ""
+            },
+            {
+                id: 5,
+                name: "İsmail KARABULUT",
+                position: "",
+                image: "",
+                bio: ""
+            },
+            {
+                id: 6,
+                name: "Mustafa ÖCALAN",
+                position: "",
+                image: "",
+                bio:""
+            }
+            ,
+            {
+                id: 7,
+                name: "Nurettin AKYAZICI",
+                position: "",
+                image: "",
+                bio:""
+            }
+
+          
+        ];
+
+        // 38 üyeye çıkarmak için otomatik üye ekleme
+        // for (let i = 4; i <= 38; i++) {
+        //     const colors = ['003366', '006699', '0099cc', '8a2be2', 'ff1493'];
+        //     const positions = ['Yönetim Kurulu Üyesi', 'Koordinatör', 'Uzman', 'Danışman', 'Sorumlu'];
+        //     const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        //     const randomPosition = positions[Math.floor(Math.random() * positions.length)];
+            
+        //     boardMembers.push({
+        //         id: i,
+        //         name: `Üye ${i} Adı Soyadı`,
+        //         position: randomPosition,
+        //         image: `https://via.placeholder.com/400x300/${randomColor}/ffffff?text=ÜYE+${i}`,
+        //         bio: `${i}. yönetim kurulu üyemiz hakkında detaylı bilgiler burada yer alacak. Dernekimizin başarısına büyük katkıları vardır ve alanında uzman bir kişidir.`
+        //     });
+        // }
+
+        // FLIP CARD FONKSİYONU - TAM ÇALIŞIR
+        function flipCard(cardId) {
+            const card = document.getElementById(cardId);
+            if (card) {
+                card.classList.toggle('flipped');
+            }
+        }
+
+        // MEMBER FLIP CARD FONKSİYONU
+        function flipMemberCard(element) {
+            const card = element.closest('.member-card-container').querySelector('.member-flip-card');
+            if (card) {
+                card.classList.toggle('flipped');
+            }
+        }
+
+        // KARTLARI OLUŞTUR
+        function createMemberCards() {
+            const grid = document.getElementById('membersGrid');
+            
+            boardMembers.forEach((member, index) => {
+                const cardContainer = document.createElement('div');
+                cardContainer.className = 'member-card-container fade-in';
+                cardContainer.style.setProperty('--drop-delay', (index * 0.1) + 's');
+                cardContainer.style.setProperty('--drop-duration', (1 + Math.random() * 0.5) + 's');
+                
+                cardContainer.innerHTML = `
+                    <div class="member-flip-card" id="memberCard${member.id}">
+                        <div class="member-card-face">
+                            <img src="${member.image}" 
+                                 alt="${member.name}" 
+                                 class="member-image">
+                            <h3 class="member-name">${member.name}</h3>
+                            <p class="member-position">⚡ ${member.position} ⚡</p>
+                            <button class="action-button" onclick="flipCard('memberCard${member.id}')">
+                                <i class="fas fa-magic"></i> HAKKINDA
+                            </button>
+                        </div>
+                        <div class="member-card-face member-card-back">
+                            <h3 class="member-name">${member.name}</h3>
+                            <p class="member-description">
+                                ${member.bio.length > 150 ? member.bio.substring(0, 150) + '...' : member.bio}
+                            </p>
+                            <button class="action-button" onclick="openModal(${member.id})">
+                                <i class="fas fa-expand"></i> DETAYLAR
+                            </button>
+                            <button class="action-button" onclick="flipCard('memberCard${member.id}')" style="background: linear-gradient(45deg, var(--primary), var(--secondary));">
+                                <i class="fas fa-arrow-left"></i> GERİ
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(cardContainer);
+            });
+        }
+
+        // MODAL AÇMA
+        function openModal(memberId) {
+            const modal = document.getElementById('memberModal');
+            
+            if (memberId === 'president') {
+                document.getElementById('modalImage').src = "image/mehmet-genc-başkanımız.jpeg";
+                document.getElementById('modalName').textContent = "Mehmet Genç";
+                document.getElementById('modalPosition').textContent = "⚡ MÜMDER BAŞKANI ⚡";
+                document.getElementById('modalBio').textContent = " 1997 yılında aynı üniversitenin Türkiyat Araştırmaları Enstitüsü Yeniçağ Tarihi Bölümü’nde Yüksek Lisansı tamamlayıp 2003 yılında Yeditepe Üniversitesi Sosyal Bilimler Enstitüsü’nde MBA ve İnsan Kaynakları Yönetimi’nde ayrıca Yüksek Lisans yaptı. Okan Üniversitesi’nde Öğretim Görevlisi olan GENÇ, İktisat, İşletme ve İnsan Kaynakları Yönetimi dersleri verdi. Halen aynı üniversitenin Sosyal Bilimler Enstitüsü İşletme Bölümü’nde Doktora çalışmalarına devam etmektedir. Çeşitli gazete ve dergilerde yayımlanan makalelerinin yanı sıra, 2001 yılında İGDAŞ Yayınlarından çıkan; ‘Fotoğraf ve Belgeler Işığında İstanbul Depremleri’ isimli bir de eseri bulunmaktadır. BELBİM AŞ’de başlayan çalışma hayatı, 1997 yılında girdiği İGDAŞ’ta sırasıyla; Özel Kalem Müdürlüğü, Genel Müdür Danışmanlığı ve İç Denetim Kurulu Üyeliği ile devam etti. 2009 Mahalli İdareler Seçimlerinin ardından göreve başladığı Sancaktepe Belediyesi’nde Özel Kalem Müdürlüğü yapan Genç, 2014-2019 yılları arasında Sancaktepe Belediye Başkan Yardımcılığı görevini yürütmüştür. Lise yıllarında tanıştığı Milli Gençlik Vakfı’nda Marmara Üniversitesi Fakülte Başkanlığı ve Üniversite Başkanlığı ile Erenköy ve Kadıköy İlçe Başkan Yardımcılığı yapan GENÇ, Refah Partisi, Fazilet Partisi ve AK Parti’de siyasi çalışmalar içerisinde yer aldı. 2003 yılından itibaren; AK Parti Kadıköy İlçe Yönetim Kurulu Üyeliği, İlçe Yerel Yönetimler Birim Başkanlığı, Ataşehir İlçe Kurucu Üyeliği, Siyasi ve Hukuki İşler Birim Başkanlığı ve SKM Başkanlığı yaptı. Birçok sivil toplum kuruluşunda aktif rol alan GENÇ; Sadakataşı Derneği Yönetim Kurulu Üyesi, Türkiye Dil ve Edebiyat Derneği Dış İlişkilerden Sorumlu Genel Başkan Yardımcısı, Deniz Feneri Derneği Genel Kurul Delegesi ve Cihannüma Derneği Üyesi’dir. Aynı zamanda Sivas Platformu İcra Kurulu Üyesi ve İstanbul Sivas İlbeyliler Derneği Başkanı olan GENÇ, birçok hemşehri derneğinin de üyesidir. Sporla iç içe olan MEHMET GENÇ; 25 Mayıs 2016 yılından beri Sancaktepe Belediyespor Kulüp Başkanlığı görevini sürdürmektedir. Bir dönem Türkiye Güreş Federasyonu Asbaşkanlığı ve Sancaktepe Belediyespor Güreş Şube Başkanlığı görevlerini yürüten Genç ayrıca Fenerbahçe Spor Kulübü Kongre Üyesi’dir. Evli, 3 çocuk babası olan GENÇ, Arapça ve iyi derecede İngilizce bilmektedir.";
+            } else {
+                const member = boardMembers.find(m => m.id === memberId);
+                if (member) {
+                    document.getElementById('modalImage').src = member.image;
+                    document.getElementById('modalName').textContent = member.name;
+                    document.getElementById('modalPosition').textContent = "⚡ " + member.position + " ⚡";
+                    document.getElementById('modalBio').textContent = member.bio + " Akademik ve profesyonel geçmişi ile dernekimizin hedeflerine ulaşmasında önemli rol oynamaktadır. Deneyimi ve uzmanlığı ile katkılarını sürdürmektedir.";
+                }
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // MODAL KAPATMA
+        function closeModal() {
+            const modal = document.getElementById('memberModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // SAYAÇ ANİMASYONU
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach((counter) => {
+                const target = parseInt(counter.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const duration = 2000;
+                const stepTime = duration / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current);
+                }, stepTime);
+            });
+        }
+
+        // SCROLL ANİMASYONLARI
+        function handleScrollAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(el => observer.observe(el));
+        }
+
+        // RASTGELE RENK EFEKTLERİ
+        function addRandomColorEffects() {
+            const cards = document.querySelectorAll('.member-card-container');
+            
+            cards.forEach((card) => {
+                card.addEventListener('mouseenter', () => {
+                    const colors = ['#00ffff', '#8a2be2', '#ff1493', '#00ff00', '#ffa500'];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    card.style.boxShadow = `0 0 50px ${randomColor}40`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '';
+                });
+            });
+        }
+
+        // SAYFA YÜKLENDİĞİNDE ÇALIŞTIR
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kartları oluştur
+            createMemberCards();
+            
+            // Animasyonları başlat
+            setTimeout(() => {
+                animateCounters();
+                handleScrollAnimations();
+                addRandomColorEffects();
+            }, 500);
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+            
+            // Modal dışına tıklayınca kapat
+            document.getElementById('memberModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+        });
+
+        // PARALAKS EFEKTİ
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
+            });
+        });
+
+        // ÖZEL EFEKTLERİ ETKİNLEŞTİR
+        function activateSpecialEffects() {
+            setInterval(() => {
+                const elements = document.querySelectorAll('.member-name, .hero-title');
+                const randomElement = elements[Math.floor(Math.random() * elements.length)];
+                
+                if (randomElement) {
+                    randomElement.style.animation = 'none';
+                    setTimeout(() => {
+                        randomElement.style.animation = '';
+                    }, 10);
+                }
+            }, 4000);
+        }
+
+        // BAŞLAT
+        setTimeout(activateSpecialEffects, 2000);
+    </script>
+</body>
+</html>

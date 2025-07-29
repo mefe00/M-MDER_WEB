@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Burs Başvuru Formu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s ease-in-out infinite;
+        }
+
+        @keyframes rainbow {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(180deg); }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+        .section:nth-child(7) { animation-delay: 0.6s; }
+        .section:nth-child(8) { animation-delay: 0.7s; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-title:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .section-title:hover:before {
+            left: 100%;
+        }
+
+        .section-title:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .radio-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: scale(1.05);
+        }
+
+        .radio-item input[type="radio"] {
+            margin-right: 8px;
+            width: auto;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group:hover {
+            border-color: #667eea;
+            background: #eef2ff;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+            transform: scale(1.2);
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px dashed rgba(255,255,255,0.5);
+        }
+
+        .file-upload-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 20px 60px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover:before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🚀 BURS BAŞVURU FORMU</h1>
+            <p>Geleceğine yatırım yap! ✨</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="scholarshipForm" method="POST" enctype="multipart/form-data">
+                
+                <!-- 1. Kişisel Bilgiler -->
+                <div class="section">
+                    <h2 class="section-title">👤 1. Kişisel Bilgiler</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Ad Soyad *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthDate">Doğum Tarihi *</label>
+                            <input type="date" id="birthDate" name="birthDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tcNo">TC Kimlik No</label>
+                            <input type="text" id="tcNo" name="tcNo" maxlength="11" pattern="[0-9]{11}">
+                        </div>
+                        <div class="form-group">
+                            <label>Cinsiyet *</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="male" name="gender" value="erkek" required>
+                                    <label for="male">Erkek</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="female" name="gender" value="kadın" required>
+                                    <label for="female">Kadın</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="maritalStatus">Medeni Durum *</label>
+                            <select id="maritalStatus" name="maritalStatus" required>
+                                <option value="">Seçiniz</option>
+                                <option value="bekar">Bekar</option>
+                                <option value="evli">Evli</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-posta *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Adres *</label>
+                            <textarea id="address" name="address" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Eğitim Bilgileri -->
+                <div class="section">
+                    <h2 class="section-title">🎓 2. Eğitim Bilgileri</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="schoolName">Okul Adı *</label>
+                            <input type="text" id="schoolName" name="schoolName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolType">Okul Türü *</label>
+                            <select id="schoolType" name="schoolType" required>
+                                <option value="">Seçiniz</option>
+                                <option value="lise">Lise</option>
+                                <option value="universite">Üniversite</option>
+                                <option value="yuksek_lisans">Yüksek Lisans</option>
+                                <option value="doktora">Doktora</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="faculty">Fakülte/Bölüm *</label>
+                            <input type="text" id="faculty" name="faculty" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">Sınıf *</label>
+                            <select id="grade" name="grade" required>
+                                <option value="">Seçiniz</option>
+                                <option value="1">1. Sınıf</option>
+                                <option value="2">2. Sınıf</option>
+                                <option value="3">3. Sınıf</option>
+                                <option value="4">4. Sınıf</option>
+                                <option value="5">5. Sınıf</option>
+                                <option value="6">6. Sınıf</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="educationType">Öğrenim Türü *</label>
+                            <select id="educationType" name="educationType" required>
+                                <option value="">Seçiniz</option>
+                                <option value="orgun">Örgün</option>
+                                <option value="ikinci_ogretim">İkinci Öğretim</option>
+                                <option value="acik_ogretim">Açık Öğretim</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="gpa">GNO (Genel Not Ortalaması)</label>
+                            <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4">
+                        </div>
+                        <div class="form-group">
+                            <label>Hazırlık Okudu mu?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="prepYes" name="preparatorySchool" value="evet">
+                                    <label for="prepYes">Evet</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="prepNo" name="preparatorySchool" value="hayır">
+                                    <label for="prepNo">Hayır</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="graduationDate">Mezuniyet Tarihi (Beklenen)</label>
+                            <input type="date" id="graduationDate" name="graduationDate">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Maddi Durum Bilgileri -->
+                <div class="section">
+                    <h2 class="section-title">💰 3. Maddi Durum Bilgileri</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="familyIncome">Ailenin Toplam Aylık Geliri (TL) *</label>
+                            <input type="number" id="familyIncome" name="familyIncome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="workingSiblings">Çalışan Kardeş Sayısı</label>
+                            <input type="number" id="workingSiblings" name="workingSiblings" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentSiblings">Öğrenci Kardeş Sayısı</label>
+                            <input type="number" id="studentSiblings" name="studentSiblings" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="familySize">Ailede Yaşayan Kişi Sayısı *</label>
+                            <input type="number" id="familySize" name="familySize" required min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="houseStatus">Ev Durumu *</label>
+                            <select id="houseStatus" name="houseStatus" required>
+                                <option value="">Seçiniz</option>
+                                <option value="kira">Kira</option>
+                                <option value="aidat">Aidat Ödüyor</option>
+                                <option value="kendisi">Ev Kendilerine Ait</option>
+                                <option value="aile">Aile Büyüklerinden</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthlyRent">Aylık Kira/Aidat (TL)</label>
+                            <input type="number" id="monthlyRent" name="monthlyRent">
+                        </div>
+                        <div class="form-group">
+                            <label for="otherExpenses">Ailenin Diğer Giderleri (TL)</label>
+                            <input type="number" id="otherExpenses" name="otherExpenses">
+                        </div>
+                        <div class="form-group">
+                            <label>Ailede Özel İhtiyaç Sahibi Birey Var mı?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="specialNeedYes" name="specialNeeds" value="evet">
+                                    <label for="specialNeedYes">Evet</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="specialNeedNo" name="specialNeeds" value="hayır">
+                                    <label for="specialNeedNo">Hayır</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="specialNeedDetails">Özel İhtiyaç Detayları</label>
+                            <textarea id="specialNeedDetails" name="specialNeedDetails"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Burs ve Destek Bilgileri -->
+                <div class="section">
+                    <h2 class="section-title">🎯 4. Burs ve Destek Bilgileri</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Başka Bir Yerden Burs Alıyor musunuz?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="otherScholarshipYes" name="otherScholarship" value="evet">
+                                    <label for="otherScholarshipYes">Evet</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="otherScholarshipNo" name="otherScholarship" value="hayır">
+                                    <label for="otherScholarshipNo">Hayır</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="scholarshipSource">Burs Kaynağı</label>
+                            <input type="text" id="scholarshipSource" name="scholarshipSource" placeholder="KYK, Vakıf, Özel Kurum vb.">
+                        </div>
+                        <div class="form-group">
+                            <label for="scholarshipType">Burs Türü</label>
+                            <select id="scholarshipType" name="scholarshipType">
+                                <option value="">Seçiniz</option>
+                                <option value="karsilikli">Karşılıklı</option>
+                                <option value="geri_odemeli">Geri Ödemeli</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="scholarshipAmount">Aldığı Burs Miktarı (TL)</label>
+                            <input type="number" id="scholarshipAmount" name="scholarshipAmount">
+                        </div>
+                        <div class="form-group">
+                            <label for="scholarshipDuration">Burs Süresi</label>
+                            <input type="text" id="scholarshipDuration" name="scholarshipDuration" placeholder="Örn: 2 yıl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Motivasyon ve Kişisel Gelişim -->
+                <div class="section">
+                    <h2 class="section-title">🌟 5. Motivasyon ve Kişisel Gelişim</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="motivation">Neden Bu Bursa Başvuruyorsunuz? *</label>
+                            <textarea id="motivation" name="motivation" required placeholder="Motivasyonunuzu ve bu bursun sizin için önemini açıklayın..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="futureGoals">Gelecek Hedefleriniz Neler? *</label>
+                            <textarea id="futureGoals" name="futureGoals" required placeholder="Kariyer hedeflerinizi ve planlarınızı paylaşın..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Sosyal Sorumluluk Projelerinde Yer Aldınız mı?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="socialProjectYes" name="socialProjects" value="evet">
+                                    <label for="socialProjectYes">Evet</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="socialProjectNo" name="socialProjects" value="hayır">
+                                    <label for="socialProjectNo">Hayır</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="socialProjectDetails">Sosyal Sorumluluk Proje Detayları</label>
+                            <textarea id="socialProjectDetails" name="socialProjectDetails" placeholder="Katıldığınız projeleri açıklayın..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="extracurricular">Ders Dışı Faaliyetler</label>
+                            <textarea id="extracurricular" name="extracurricular" placeholder="Kulüpler, gönüllülük, spor, sanat faaliyetleri..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="workExperience">İş Tecrübesi</label>
+                            <textarea id="workExperience" name="workExperience" placeholder="Part-time işler, stajlar, çalışma deneyimleri..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Referanslar -->
+                <div class="section">
+                    <h2 class="section-title">👥 6. Referanslar</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="reference1Name">1. Referans - Ad Soyad</label>
+                            <input type="text" id="reference1Name" name="reference1Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="reference1Title">1. Referans - Ünvan</label>
+                            <input type="text" id="reference1Title" name="reference1Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="reference1Phone">1. Referans - Telefon</label>
+                            <input type="tel" id="reference1Phone" name="reference1Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="reference2Name">2. Referans - Ad Soyad</label>
+                            <input type="text" id="reference2Name" name="reference2Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="reference2Title">2. Referans - Ünvan</label>
+                            <input type="text" id="reference2Title" name="reference2Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="reference2Phone">2. Referans - Telefon</label>
+                            <input type="tel" id="reference2Phone" name="reference2Phone">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Belgeler -->
+                <div class="section">
+                    <h2 class="section-title">📎 7. Belgeler / Ekler</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Öğrenci Belgesi</label>
+                            <div class="file-upload">
+                                <input type="file" id="studentDocument" name="studentDocument" accept=".pdf,.jpg,.jpeg,.png">
+                                <label for="studentDocument" class="file-upload-label">
+                                    📄 Öğrenci Belgesini Yükle
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Transkript</label>
+                            <div class="file-upload">
+                                <input type="file" id="transcript" name="transcript" accept=".pdf,.jpg,.jpeg,.png">
+                                <label for="transcript" class="file-upload-label">
+                                    📊 Transkript Belgesini Yükle
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nüfus Kayıt Örneği</label>
+                            <div class="file-upload">
+                                <input type="file" id="populationRecord" name="populationRecord" accept=".pdf,.jpg,.jpeg,.png">
+                                <label for="populationRecord" class="file-upload-label">
+                                    🆔 Nüfus Kayıt Örneğini Yükle
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Aile Gelir Belgesi</label>
+                            <div class="file-upload">
+                                <input type="file" id="incomeDocument" name="incomeDocument" accept=".pdf,.jpg,.jpeg,.png">
+                                <label for="incomeDocument" class="file-upload-label">
+                                    💼 Gelir Belgesini Yükle
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>İkametgah Belgesi</label>
+                            <div class="file-upload">
+                                <input type="file" id="residenceDocument" name="residenceDocument" accept=".pdf,.jpg,.jpeg,.png">
+                                <label for="residenceDocument" class="file-upload-label">
+                                    🏠 İkametgah Belgesini Yükle
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Kimlik Fotokopisi</label>
+                            <div class="file-upload">
+                                <input type="file" id="idDocument" name="idDocument" accept=".pdf,.jpg,.jpeg,.png">
+                                <label for="idDocument" class="file-upload-label">
+                                    🆔 Kimlik Fotokopisini Yükle
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Onay ve Taahhüt -->
+                <div class="section">
+                    <h2 class="section-title">✅ 8. Onay ve Taahhüt</h2>
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="dataAccuracy" name="dataAccuracy" required>
+                            <label for="dataAccuracy">
+                                <strong>Veri Doğruluğu Taahhüdü:</strong> Bu formda verdiğim tüm bilgilerin doğru olduğunu, herhangi bir yanlış veya eksik bilgi vermediğimi taahhüt ederim. Yanlış bilgi verdiğimin tespit edilmesi durumunda burs hakkımdan feragat edeceğimi kabul ederim.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="kvkkConsent" name="kvkkConsent" required>
+                            <label for="kvkkConsent">
+                                <strong>KVKK Açık Rıza Metni:</strong> 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında, kişisel verilerimin bu burs başvurusu sürecinde işlenmesine, değerlendirilmesine ve saklanmasına açık rızam ile onay veriyorum. Verilerimin yalnızca burs değerlendirmesi amacıyla kullanılacağını kabul ediyorum.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="applicationRules" name="applicationRules" required>
+                            <label for="applicationRules">
+                                <strong>Başvuru Koşulları:</strong> Burs başvuru koşullarını ve değerlendirme kriterlerini okudum, anladım ve kabul ediyorum. Burs komitesinin vereceği karara saygı duyacağımı taahhüt ederim.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn pulse">
+                        🚀 BAŞVURUMU GÖNDER
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form progress tracking
+        const form = document.getElementById('scholarshipForm');
+        const progressFill = document.getElementById('progressFill');
+        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+        
+        function updateProgress() {
+            let filledInputs = 0;
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    if (document.querySelector(`input[name="${input.name}"]:checked`)) {
+                        filledInputs++;
+                    }
+                } else if (input.value.trim() !== '') {
+                    filledInputs++;
+                }
+            });
+            
+            const progress = (filledInputs / inputs.length) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        // Add event listeners to all form inputs
+        inputs.forEach(input => {
+            input.addEventListener('input', updateProgress);
+            input.addEventListener('change', updateProgress);
+        });
+
+        // Section title click animation
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-2px)';
+                }, 150);
+            });
+        });
+
+        // File upload feedback
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const label = this.nextElementSibling;
+                if (this.files.length > 0) {
+                    label.style.background = 'linear-gradient(135deg, #4ecdc4, #44a08d)';
+                    label.innerHTML = '✅ ' + this.files[0].name;
+                } else {
+                    label.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                    label.innerHTML = label.getAttribute('data-original-text');
+                }
+            });
+        });
+
+        // Store original file upload texts
+        document.querySelectorAll('.file-upload-label').forEach(label => {
+            label.setAttribute('data-original-text', label.innerHTML);
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading animation
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '⏳ GÖNDERİLİYOR...';
+            submitBtn.style.background = 'linear-gradient(135deg, #ffa726, #fb8c00)';
+            
+            // Simulate form processing
+            setTimeout(() => {
+                submitBtn.innerHTML = '✅ BAŞVURU GÖNDERİLDİ!';
+                submitBtn.style.background = 'linear-gradient(135deg, #66bb6a, #43a047)';
+                
+                // Show success message
+                setTimeout(() => {
+                    alert('🎉 Başvurunuz başarıyla gönderildi! En kısa sürede değerlendirmeye alınacaktır.');
+                    
+                    // Reset form
+                    setTimeout(() => {
+                        form.reset();
+                        updateProgress();
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = 'linear-gradient(135deg, #ff6b6b, #4ecdc4)';
+                        
+                        // Reset file upload labels
+                        document.querySelectorAll('.file-upload-label').forEach(label => {
+                            label.innerHTML = label.getAttribute('data-original-text');
+                            label.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                        });
+                    }, 2000);
+                }, 1000);
+            }, 2000);
+            
+            // Here you would normally send the form data to your PHP backend
+            // const formData = new FormData(this);
+            // fetch('your-php-endpoint.php', {
+            //     method: 'POST',
+            //     body: formData
+            // }).then(response => response.json())
+            //   .then(data => console.log(data));
+        });
+
+        // Add floating animation to shapes
+        document.querySelectorAll('.shape').forEach((shape, index) => {
+            shape.style.animationDelay = index * 2 + 's';
+        });
+
+        // Smooth scroll to sections when clicking titles
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                this.parentElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Input focus animations
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Initialize progress on page load
+        updateProgress();
+
+        // Add particle effect on submit button hover
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.addEventListener('mouseenter', function() {
+            this.style.boxShadow = '0 15px 30px rgba(255, 107, 107, 0.4)';
+        });
+        
+        submitBtn.addEventListener('mouseleave', function() {
+            this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.3)';
+        });
+    </script>
+</body>
+</html>
