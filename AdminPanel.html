@@ -125,7 +125,7 @@
 
         .control-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
@@ -134,6 +134,12 @@
             border-radius: 10px;
             padding: 1.5rem;
             background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .control-item.active {
+            border-color: #667eea;
+            background: #f0f4ff;
         }
 
         .control-item h3 {
@@ -235,11 +241,50 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
         }
 
         .save-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-btn {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .preview-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .settings-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #1565c0;
+        }
+
+        .date-range-info {
+            background: #f3e5f5;
+            border: 1px solid #e1bee7;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #7b1fa2;
         }
 
         /* Tabs */
@@ -608,9 +653,12 @@
         <!-- Application Control Section -->
         <div class="control-section">
             <h2>📅 Başvuru Dönem Yönetimi</h2>
+            <div class="settings-info">
+                ℹ️ <strong>Önemli:</strong> Başvuru dönemlerini kapatırsanız, ilgili form sayfalarında "Başvurular şu anda aktif değildir" mesajı görünecektir. Kullanıcılar form dolduramazlar.
+            </div>
             <div class="control-grid">
                 <!-- Burs Başvuru Kontrolü -->
-                <div class="control-item">
+                <div class="control-item" id="scholarshipControlItem">
                     <h3>🎓 Burs Başvuruları</h3>
                     <div class="control-toggle">
                         <label class="toggle-switch">
@@ -619,16 +667,20 @@
                         </label>
                         <span>Başvuruları Aktif Et</span>
                         <span class="status-indicator status-inactive" id="scholarshipStatus">Kapalı</span>
+                        <button class="preview-btn" onclick="previewScholarshipForm()" title="Form sayfasını önizle">👁️ Önizle</button>
                     </div>
                     <label for="scholarshipStartDate">Başlangıç Tarihi:</label>
                     <input type="datetime-local" id="scholarshipStartDate" onchange="updateScholarshipSettings()">
                     <label for="scholarshipEndDate">Bitiş Tarihi:</label>
                     <input type="datetime-local" id="scholarshipEndDate" onchange="updateScholarshipSettings()">
-                    <button class="save-btn" onclick="saveScholarshipSettings()">Kaydet</button>
+                    <div class="date-range-info" id="scholarshipDateInfo">
+                        Tarih aralığı belirlenmedi
+                    </div>
+                    <button class="save-btn" onclick="saveScholarshipSettings()">💾 Ayarları Kaydet</button>
                 </div>
 
                 <!-- Staj Başvuru Kontrolü -->
-                <div class="control-item">
+                <div class="control-item" id="internshipControlItem">
                     <h3>💼 Staj Başvuruları</h3>
                     <div class="control-toggle">
                         <label class="toggle-switch">
@@ -637,12 +689,16 @@
                         </label>
                         <span>Başvuruları Aktif Et</span>
                         <span class="status-indicator status-inactive" id="internshipStatus">Kapalı</span>
+                        <button class="preview-btn" onclick="previewInternshipForm()" title="Form sayfasını önizle">👁️ Önizle</button>
                     </div>
                     <label for="internshipStartDate">Başlangıç Tarihi:</label>
                     <input type="datetime-local" id="internshipStartDate" onchange="updateInternshipSettings()">
                     <label for="internshipEndDate">Bitiş Tarihi:</label>
                     <input type="datetime-local" id="internshipEndDate" onchange="updateInternshipSettings()">
-                    <button class="save-btn" onclick="saveInternshipSettings()">Kaydet</button>
+                    <div class="date-range-info" id="internshipDateInfo">
+                        Tarih aralığı belirlenmedi
+                    </div>
+                    <button class="save-btn" onclick="saveInternshipSettings()">💾 Ayarları Kaydet</button>
                 </div>
             </div>
         </div>
@@ -803,116 +859,6 @@
             window.location.href = "/index.html";
         }
 
-        // Sample data for demonstration - In real application, this would come from database
-        const sampleData = {
-            members: [
-                {
-                    id: 1,
-                    name: "Ahmet Yılmaz",
-                    email: "ahmet@example.com",
-                    phone: "0532 123 4567",
-                    university: "Marmara Üniversitesi",
-                    department: "Bilgisayar Mühendisliği",
-                    grade: "3. Sınıf",
-                    applicationDate: "2024-01-15",
-                    details: {
-                        "Doğum Yeri": "İstanbul",
-                        "Doğum Tarihi": "15.05.2001",
-                        "Cinsiyet": "Erkek",
-                        "İkametgah": "İstanbul / Kadıköy",
-                        "TC No": "12345678901",
-                        "Pasaport Türü": "Bordo",
-                        "Pasaport No": "U12345678",
-                        "Meslek": "Öğrenci",
-                        "Referans": "Prof. Dr. Mehmet Demir"
-                    }
-                }
-            ],
-            scholarships: [
-                {
-                    id: 1,
-                    name: "Fatma Özkan",
-                    email: "fatma@example.com",
-                    phone: "0533 987 6543",
-                    school: "Marmara Üniversitesi",
-                    department: "Tıp Fakültesi",
-                    grade: 2,
-                    gpa: 3.45,
-                    familyIncome: 8500,
-                    applicationDate: "2024-02-10",
-                    status: "pending",
-                    details: {
-                        "Doğum Tarihi": "12.03.2002",
-                        "TC Kimlik No": "98765432109",
-                        "Cinsiyet": "Kadın",
-                        "Medeni Durum": "Bekar",
-                        "Adres": "İstanbul Beylikdüzü",
-                        "Okul Türü": "Üniversite",
-                        "Öğrenim Türü": "Örgün",
-                        "Hazırlık Okudu": "Hayır",
-                        "Ailede Yaşayan Kişi Sayısı": "5",
-                        "Çalışan Kardeş Sayısı": "1",
-                        "Öğrenci Kardeş Sayısı": "2",
-                        "Ev Durumu": "Kira",
-                        "Aylık Kira": "3500 TL",
-                        "Başka Burs": "Hayır",
-                        "Motivasyon": "Ailem maddi durumu kötü olduğu için burs almak istiyorum...",
-                        "Gelecek Hedefleri": "Doktor olmak ve topluma hizmet etmek",
-                        "Sosyal Projeler": "Evet",
-                        "Referans 1": "Dr. Ayşe Kaya - 0532 111 2233",
-                        "Referans 2": "Prof. Ali Veli - 0533 444 5566"
-                    }
-                }
-            ],
-            internships: [
-                {
-                    id: 1,
-                    name: "Mehmet Can",
-                    email: "mehmet@example.com",
-                    phone: "0534 555 7788",
-                    university: "Marmara Üniversitesi",
-                    department: "Makine Mühendisliği",
-                    grade: 3,
-                    internshipType: "Zorunlu Staj",
-                    startDate: "2024-06-15",
-                    applicationDate: "2024-03-20",
-                    status: "approved",
-                    details: {
-                        "Doğum Tarihi": "08.09.2001",
-                        "TC Kimlik No": "11223344556",
-                        "Cinsiyet": "Erkek",
-                        "Telefon": "0534 555 7788",
-                        "E-posta": "mehmet@example.com",
-                        "Adres": "İstanbul Üsküdar",
-                        "Üniversite": "Marmara Üniversitesi",
-                        "Fakülte": "Teknoloji Fakültesi",
-                        "Bölüm": "Makine Mühendisliği",
-                        "Sınıf": "3. Sınıf",
-                        "Staj Süresi": "30 Gün",
-                        "Staj Alanı": "Üretim"
-                    }
-                }
-            ],
-            donors: [
-                {
-                    id: 1,
-                    name: "Hasan Avcı",
-                    email: "hasan@example.com",
-                    phone: "0535 111 2233",
-                    amount: 1000,
-                    project: "İhtiyaç Bursu",
-                    date: "2024-01-25",
-                    message: "Gençlerimizin eğitimine destek olmak istiyorum.",
-                    details: {
-                        "Bağış Tutarı": "1000 TL",
-                        "Seçilen Proje": "İhtiyaç Bursu",
-                        "İleti": "Gençlerimizin eğitimine destek olmak istiyorum.",
-                        "Bağış Tarihi": "25.01.2024"
-                    }
-                }
-            ]
-        };
-
         // Application settings
         let applicationSettings = {
             scholarship: {
@@ -925,6 +871,14 @@
                 startDate: '',
                 endDate: ''
             }
+        };
+
+        // Data storage (in real app, this would come from backend)
+        const sampleData = {
+            members: [],
+            scholarships: [],
+            internships: [],
+            donors: []
         };
 
         // Initialize the page
@@ -1124,31 +1078,45 @@
         function toggleScholarshipApplications() {
             const toggle = document.getElementById('scholarshipToggle');
             const status = document.getElementById('scholarshipStatus');
+            const controlItem = document.getElementById('scholarshipControlItem');
             
             applicationSettings.scholarship.isActive = toggle.checked;
             
             if (toggle.checked) {
                 status.textContent = 'Açık';
                 status.className = 'status-indicator status-active';
+                controlItem.classList.add('active');
             } else {
                 status.textContent = 'Kapalı';
                 status.className = 'status-indicator status-inactive';
+                controlItem.classList.remove('active');
             }
+            
+            updateDateInfo('scholarship');
+            // This would trigger an API call to update the form status
+            updateFormStatus('scholarship', toggle.checked);
         }
 
         function toggleInternshipApplications() {
             const toggle = document.getElementById('internshipToggle');
             const status = document.getElementById('internshipStatus');
+            const controlItem = document.getElementById('internshipControlItem');
             
             applicationSettings.internship.isActive = toggle.checked;
             
             if (toggle.checked) {
                 status.textContent = 'Açık';
                 status.className = 'status-indicator status-active';
+                controlItem.classList.add('active');
             } else {
                 status.textContent = 'Kapalı';
                 status.className = 'status-indicator status-inactive';
+                controlItem.classList.remove('active');
             }
+            
+            updateDateInfo('internship');
+            // This would trigger an API call to update the form status
+            updateFormStatus('internship', toggle.checked);
         }
 
         function updateScholarshipSettings() {
@@ -1157,6 +1125,8 @@
             
             applicationSettings.scholarship.startDate = startDate;
             applicationSettings.scholarship.endDate = endDate;
+            
+            updateDateInfo('scholarship');
         }
 
         function updateInternshipSettings() {
@@ -1165,22 +1135,67 @@
             
             applicationSettings.internship.startDate = startDate;
             applicationSettings.internship.endDate = endDate;
+            
+            updateDateInfo('internship');
+        }
+
+        function updateDateInfo(type) {
+            const settings = applicationSettings[type];
+            const infoElement = document.getElementById(type + 'DateInfo');
+            
+            if (settings.startDate && settings.endDate) {
+                const startDate = new Date(settings.startDate).toLocaleString('tr-TR');
+                const endDate = new Date(settings.endDate).toLocaleString('tr-TR');
+                infoElement.textContent = `${startDate} - ${endDate} arası aktif olacak`;
+                infoElement.style.background = '#e8f5e8';
+                infoElement.style.borderColor = '#c3e6c3';
+                infoElement.style.color = '#2e7d32';
+            } else {
+                infoElement.textContent = 'Tarih aralığı belirlenmedi';
+                infoElement.style.background = '#f3e5f5';
+                infoElement.style.borderColor = '#e1bee7';
+                infoElement.style.color = '#7b1fa2';
+            }
         }
 
         function saveScholarshipSettings() {
-            // In real application, this would save to database
+            // In real application, this would save to database via API
             localStorage.setItem('scholarshipSettings', JSON.stringify(applicationSettings.scholarship));
-            alert('Burs başvuru ayarları kaydedildi!');
+            
+            // Show success message
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Kaydedildi!';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
+            
+            console.log('Burs ayarları kaydedildi:', applicationSettings.scholarship);
         }
 
         function saveInternshipSettings() {
-            // In real application, this would save to database
+            // In real application, this would save to database via API
             localStorage.setItem('internshipSettings', JSON.stringify(applicationSettings.internship));
-            alert('Staj başvuru ayarları kaydedildi!');
+            
+            // Show success message
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Kaydedildi!';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
+            
+            console.log('Staj ayarları kaydedildi:', applicationSettings.internship);
         }
 
         function loadApplicationSettings() {
-            // Load settings from localStorage (in real app, from database)
+            // Load settings from localStorage (in real app, from database via API)
             const scholarshipSettings = localStorage.getItem('scholarshipSettings');
             const internshipSettings = localStorage.getItem('internshipSettings');
             
@@ -1199,6 +1214,45 @@
                 document.getElementById('internshipEndDate').value = applicationSettings.internship.endDate;
                 toggleInternshipApplications();
             }
+        }
+
+        // API simulation functions (these would be real API calls in production)
+        function updateFormStatus(type, isActive) {
+            // This function would make an API call to update form status
+            console.log(`${type} form status updated: ${isActive ? 'ACTIVE' : 'INACTIVE'}`);
+            
+            // In real implementation:
+            // fetch('/api/update-form-status', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ type, isActive, settings: applicationSettings[type] })
+            // });
+        }
+
+        function checkApplicationStatus(type) {
+            // This would check if applications are currently open based on date/time
+            const settings = applicationSettings[type];
+            if (!settings.isActive) return false;
+            
+            if (settings.startDate && settings.endDate) {
+                const now = new Date();
+                const start = new Date(settings.startDate);
+                const end = new Date(settings.endDate);
+                return now >= start && now <= end;
+            }
+            
+            return settings.isActive;
+        }
+
+        // Preview form functions
+        function previewScholarshipForm() {
+            // This would open the scholarship form in a new tab
+            window.open('burs-form.html', '_blank');
+        }
+
+        function previewInternshipForm() {
+            // This would open the internship form in a new tab
+            window.open('staj-form.html', '_blank');
         }
 
         // View details function
@@ -1223,6 +1277,11 @@
                     item = sampleData.donors.find(d => d.id === id);
                     titlePrefix = 'Bağış Taahhüdü';
                     break;
+            }
+
+            if (!item) {
+                alert('Kayıt bulunamadı.');
+                return;
             }
 
             document.getElementById('modalTitle').textContent = `${titlePrefix} - ${item.name}`;
